@@ -38,7 +38,7 @@ class ViewController: UIViewController {
                            usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0,
                            options: .curveEaseInOut) { [weak self] in
-                self?.hamburgerMenuView.frame.origin.x = -280
+                self?.hamburgerMenuView.frame.origin.x = -240
             }
             menuState = .close
         case .close:
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
                            usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0,
                            options: .curveEaseInOut) { [weak self] in
-                self?.hamburgerMenuView.frame.origin.x = -10
+                self?.hamburgerMenuView.frame.origin.x = -0
             }
             menuState = .open
         }

@@ -14,6 +14,8 @@ protocol MenuViewDelegate: AnyObject {
 @IBDesignable
 class MenuView: UIView {
     
+    var handleClick: (()->())?
+    
     weak var delegate: MenuViewDelegate?
     
     override init(frame: CGRect) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,10 +15,35 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PR4-SO-b8r">
-                    <rect key="frame" x="0.0" y="0.0" width="280" height="844"/>
+                    <rect key="frame" x="0.0" y="0.0" width="285" height="844"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZw-yx-Lj8">
+                            <rect key="frame" x="240" y="0.0" width="45" height="844"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xup-A5-hgy">
+                                    <rect key="frame" x="2" y="54" width="40" height="40"/>
+                                    <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="OM2-vZ-QzI"/>
+                                        <constraint firstAttribute="height" constant="40" id="rry-Fu-WS6"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="list.bullet" catalog="system"/>
+                                    <connections>
+                                        <action selector="mBtn:" destination="-1" eventType="touchUpInside" id="gct-ck-ZAl"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="45" id="371-KM-YBN"/>
+                                <constraint firstItem="xup-A5-hgy" firstAttribute="top" secondItem="oZw-yx-Lj8" secondAttribute="top" constant="54" id="40Q-FA-CtU"/>
+                                <constraint firstAttribute="trailing" secondItem="xup-A5-hgy" secondAttribute="trailing" constant="3" id="DPX-fo-BDi"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scd-k3-IfY">
-                            <rect key="frame" x="80" y="54" width="120" height="35"/>
+                            <rect key="frame" x="82.666666666666686" y="54" width="120" height="31"/>
                             <color key="backgroundColor" systemColor="systemPinkColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="120" id="Vvf-R0-F9Q"/>
@@ -30,28 +55,15 @@
                                 <action selector="ad:" destination="-1" eventType="touchUpInside" id="gaC-yI-H6e"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xup-A5-hgy">
-                            <rect key="frame" x="280" y="54" width="40" height="40"/>
-                            <color key="backgroundColor" systemColor="systemPinkColor"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="OM2-vZ-QzI"/>
-                                <constraint firstAttribute="height" constant="40" id="rry-Fu-WS6"/>
-                            </constraints>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="list.bullet" catalog="system"/>
-                            <connections>
-                                <action selector="mBtn:" destination="-1" eventType="touchUpInside" id="gct-ck-ZAl"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="280" id="1c9-mp-tde"/>
-                        <constraint firstAttribute="trailing" secondItem="xup-A5-hgy" secondAttribute="trailing" constant="-40" id="2le-kk-4Hi"/>
+                        <constraint firstAttribute="width" constant="285" id="1c9-mp-tde"/>
                         <constraint firstItem="Scd-k3-IfY" firstAttribute="centerX" secondItem="PR4-SO-b8r" secondAttribute="centerX" id="C6A-8O-gYn"/>
-                        <constraint firstItem="xup-A5-hgy" firstAttribute="top" secondItem="PR4-SO-b8r" secondAttribute="top" constant="54" id="NoY-3a-t22"/>
+                        <constraint firstItem="oZw-yx-Lj8" firstAttribute="top" secondItem="PR4-SO-b8r" secondAttribute="top" id="N4H-xC-sA8"/>
                         <constraint firstItem="Scd-k3-IfY" firstAttribute="top" secondItem="PR4-SO-b8r" secondAttribute="top" constant="54" id="YO3-0W-pry"/>
+                        <constraint firstAttribute="bottom" secondItem="oZw-yx-Lj8" secondAttribute="bottom" id="mZ5-G5-eF8"/>
+                        <constraint firstAttribute="trailing" secondItem="oZw-yx-Lj8" secondAttribute="trailing" id="xJ0-cT-M1x"/>
                     </constraints>
                 </view>
             </subviews>
@@ -67,12 +79,15 @@
         </view>
     </objects>
     <resources>
-        <image name="list.bullet" catalog="system" width="128" height="87"/>
+        <image name="list.bullet" catalog="system" width="128" height="88"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
