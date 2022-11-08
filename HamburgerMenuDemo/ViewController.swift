@@ -7,64 +7,67 @@
 
 import UIKit
 
-enum MenuState {
-    case open
-    case close
-}
+
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var hamburgerMenuView: MenuView!
-    
-    private let menuView = MenuView()
-    
-    
-    var menuState: MenuState = .open
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        //menuView.delegate = self
-        
+        hamburgerMenuView.menuState = .closed
         hamburgerMenuView.delegate = self
-    }
-
-    @IBAction func buttonTapped(_ sender: Any) {
-        print("button tapped")
-        switch menuState {
-        case .open:
-            UIView.animate(withDuration: 0.5,
-                           delay: 0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 0,
-                           options: .curveEaseInOut) { [weak self] in
-                self?.hamburgerMenuView.frame.origin.x = -280
-            }
-            menuState = .close
-        case .close:
-            UIView.animate(withDuration: 0.5,
-                           delay: 0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 0,
-                           options: .curveEaseInOut) { [weak self] in
-                self?.hamburgerMenuView.frame.origin.x = -10
-            }
-            menuState = .open
+        hamburgerMenuView.handleClick = { [weak self] in
+            print("handleClick")
+            self?.toggleMenu()
         }
 
     }
+    @IBAction func button(_ sender: Any) {
+        print("view")
+    }
     
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        toggleMenu()
+    }
+    
+    func toggleMenu() {
+        switch hamburgerMenuView.menuState {
+        case .opened:
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.hamburgerMenuView.frame.origin.x = -285
+                self?.menuButton.frame.origin.x = 0
+                self?.menuButton.setImage(UIImage(named: "menu"), for: .normal)
+            }
+            hamburgerMenuView.menuState = .closed
+        case .closed:
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.hamburgerMenuView.frame.origin.x = -5
+                self?.menuButton.frame.origin.x = 270
+                self?.menuButton.setImage(UIImage(named: "close"), for: .normal)
+            }
+            hamburgerMenuView.menuState = .opened
+        default:
+                break
+        }
+    
+    }
 }
 
 extension ViewController: MenuViewDelegate {
-    func didCloseButtonTapped() {
-        UIView.animate(withDuration: 0.5,
-                       delay: 0,
-                       usingSpringWithDamping: 0.8,
-                       initialSpringVelocity: 0,
-                       options: .curveEaseInOut) { [weak self] in
-            self?.hamburgerMenuView.frame.origin.x = -280
-        }
-        menuState = .close
+    func didCloseButtonTap() {
+        toggleMenu()
     }
+    
+    
 }

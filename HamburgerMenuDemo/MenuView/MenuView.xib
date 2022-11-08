@@ -1,57 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MenuView" customModule="HamburgerMenuDemo" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MenuView" customModule="HamburgerMenuDemo" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="qee-pn-gpZ" id="tXX-KG-Si5"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="844"/>
+            <rect key="frame" x="0.0" y="0.0" width="285" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PR4-SO-b8r">
-                    <rect key="frame" x="0.0" y="0.0" width="280" height="844"/>
+                    <rect key="frame" x="0.0" y="0.0" width="285" height="844"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scd-k3-IfY">
-                            <rect key="frame" x="80" y="54" width="120" height="35"/>
-                            <color key="backgroundColor" systemColor="systemPinkColor"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZw-yx-Lj8">
+                            <rect key="frame" x="240" y="0.0" width="45" height="844"/>
+                            <subviews>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xup-A5-hgy">
+                                    <rect key="frame" x="-11" y="60" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="OM2-vZ-QzI"/>
+                                        <constraint firstAttribute="height" constant="40" id="rry-Fu-WS6"/>
+                                    </constraints>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="close"/>
+                                    <connections>
+                                        <action selector="mBtn:" destination="-1" eventType="touchUpInside" id="gct-ck-ZAl"/>
+                                    </connections>
+                                </button>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="width" constant="120" id="Vvf-R0-F9Q"/>
+                                <constraint firstAttribute="width" constant="45" id="371-KM-YBN"/>
+                                <constraint firstItem="xup-A5-hgy" firstAttribute="top" secondItem="oZw-yx-Lj8" secondAttribute="top" constant="60" id="40Q-FA-CtU"/>
+                                <constraint firstAttribute="trailing" secondItem="xup-A5-hgy" secondAttribute="trailing" constant="16" id="DPX-fo-BDi"/>
                             </constraints>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="Test Button"/>
-                            <connections>
-                                <action selector="ad:" destination="-1" eventType="touchUpInside" id="gaC-yI-H6e"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xup-A5-hgy">
-                            <rect key="frame" x="280" y="54" width="40" height="40"/>
-                            <color key="backgroundColor" systemColor="systemPinkColor"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="OM2-vZ-QzI"/>
-                                <constraint firstAttribute="height" constant="40" id="rry-Fu-WS6"/>
-                            </constraints>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="list.bullet" catalog="system"/>
-                            <connections>
-                                <action selector="mBtn:" destination="-1" eventType="touchUpInside" id="gct-ck-ZAl"/>
-                            </connections>
-                        </button>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qee-pn-gpZ">
+                            <rect key="frame" x="16" y="160" width="253" height="684"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </tableView>
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="280" id="1c9-mp-tde"/>
-                        <constraint firstAttribute="trailing" secondItem="xup-A5-hgy" secondAttribute="trailing" constant="-40" id="2le-kk-4Hi"/>
-                        <constraint firstItem="Scd-k3-IfY" firstAttribute="centerX" secondItem="PR4-SO-b8r" secondAttribute="centerX" id="C6A-8O-gYn"/>
-                        <constraint firstItem="xup-A5-hgy" firstAttribute="top" secondItem="PR4-SO-b8r" secondAttribute="top" constant="54" id="NoY-3a-t22"/>
-                        <constraint firstItem="Scd-k3-IfY" firstAttribute="top" secondItem="PR4-SO-b8r" secondAttribute="top" constant="54" id="YO3-0W-pry"/>
+                        <constraint firstAttribute="bottom" secondItem="qee-pn-gpZ" secondAttribute="bottom" id="0QJ-dj-NSe"/>
+                        <constraint firstAttribute="width" constant="285" id="1c9-mp-tde"/>
+                        <constraint firstAttribute="trailing" secondItem="qee-pn-gpZ" secondAttribute="trailing" constant="16" id="9Wh-Ko-P4o"/>
+                        <constraint firstItem="oZw-yx-Lj8" firstAttribute="top" secondItem="PR4-SO-b8r" secondAttribute="top" id="N4H-xC-sA8"/>
+                        <constraint firstAttribute="bottom" secondItem="oZw-yx-Lj8" secondAttribute="bottom" id="mZ5-G5-eF8"/>
+                        <constraint firstItem="qee-pn-gpZ" firstAttribute="top" secondItem="PR4-SO-b8r" secondAttribute="top" constant="160" id="sV5-Va-0Jq"/>
+                        <constraint firstItem="qee-pn-gpZ" firstAttribute="leading" secondItem="PR4-SO-b8r" secondAttribute="leading" constant="16" id="vLM-Pt-NG5"/>
+                        <constraint firstAttribute="trailing" secondItem="oZw-yx-Lj8" secondAttribute="trailing" id="xJ0-cT-M1x"/>
                     </constraints>
                 </view>
             </subviews>
@@ -60,19 +67,17 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="PR4-SO-b8r" secondAttribute="bottom" id="3XL-Mo-yLr"/>
                 <constraint firstItem="PR4-SO-b8r" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OyG-iW-Z0n"/>
+                <constraint firstItem="PR4-SO-b8r" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="T9c-VW-goo"/>
                 <constraint firstItem="PR4-SO-b8r" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="TVg-mM-zl2"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="49.230769230769226" y="-11.374407582938389"/>
+            <point key="canvasLocation" x="-168.46153846153845" y="-11.374407582938389"/>
         </view>
     </objects>
     <resources>
-        <image name="list.bullet" catalog="system" width="128" height="87"/>
+        <image name="close" width="40" height="40"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
