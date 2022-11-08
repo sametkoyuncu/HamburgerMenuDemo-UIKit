@@ -16,33 +16,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.stack" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="G0z-Vj-h3x">
-                                <rect key="frame" x="75" y="302" width="240" height="240"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQN-UI-UgB">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cvx-uB-d08">
+                                        <rect key="frame" x="11" y="54" width="64" height="54"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="menu"/>
+                                        <connections>
+                                            <action selector="menuButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8ah-Uj-hLh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlP-Pz-G6H">
+                                        <rect key="frame" x="135" y="402" width="120" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="jTf-KW-jyQ"/>
+                                            <constraint firstAttribute="height" constant="40" id="ucj-gT-0wu"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="button:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qyR-GM-4s0"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arX-Jy-htC" customClass="MenuView" customModule="HamburgerMenuDemo" customModuleProvider="target">
+                                        <rect key="frame" x="-285" y="0.0" width="280" height="844"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="280" id="mmS-nt-pXP"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="Aur-JN-N0Y"/>
-                                    <constraint firstAttribute="width" constant="240" id="DMl-Hh-nSn"/>
-                                </constraints>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arX-Jy-htC" customClass="MenuView" customModule="HamburgerMenuDemo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="844"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="mmS-nt-pXP"/>
+                                    <constraint firstItem="Cvx-uB-d08" firstAttribute="top" secondItem="DQN-UI-UgB" secondAttribute="top" constant="54" id="2kX-d1-44K"/>
+                                    <constraint firstItem="arX-Jy-htC" firstAttribute="leading" secondItem="DQN-UI-UgB" secondAttribute="leading" constant="-285" id="4FW-PQ-pjn"/>
+                                    <constraint firstItem="arX-Jy-htC" firstAttribute="top" secondItem="DQN-UI-UgB" secondAttribute="top" id="Aav-o6-TiM"/>
+                                    <constraint firstAttribute="bottom" secondItem="arX-Jy-htC" secondAttribute="bottom" id="AoU-kC-58D"/>
+                                    <constraint firstItem="qlP-Pz-G6H" firstAttribute="centerX" secondItem="DQN-UI-UgB" secondAttribute="centerX" id="K7B-69-maZ"/>
+                                    <constraint firstItem="Cvx-uB-d08" firstAttribute="leading" secondItem="arX-Jy-htC" secondAttribute="trailing" constant="16" id="nwE-W5-SvO"/>
+                                    <constraint firstItem="qlP-Pz-G6H" firstAttribute="centerY" secondItem="DQN-UI-UgB" secondAttribute="centerY" id="woB-Q5-g8a"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="G0z-Vj-h3x" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2lg-C6-GQq"/>
-                            <constraint firstItem="arX-Jy-htC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="L5N-4B-7I3"/>
-                            <constraint firstItem="arX-Jy-htC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tQU-6w-EaA"/>
-                            <constraint firstItem="G0z-Vj-h3x" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vVK-1u-Hc1"/>
-                            <constraint firstAttribute="bottom" secondItem="arX-Jy-htC" secondAttribute="bottom" id="zHl-hE-yCU"/>
+                            <constraint firstItem="DQN-UI-UgB" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="2Ge-yw-rL1"/>
+                            <constraint firstItem="DQN-UI-UgB" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ka1-5H-Ep4"/>
+                            <constraint firstAttribute="bottom" secondItem="DQN-UI-UgB" secondAttribute="bottom" id="TZN-j0-xmj"/>
+                            <constraint firstItem="DQN-UI-UgB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lud-3d-B7q"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="hamburgerMenuView" destination="arX-Jy-htC" id="7mD-Bt-fn4"/>
+                        <outlet property="menuButton" destination="Cvx-uB-d08" id="VuA-oT-U5D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -51,9 +79,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="photo.stack" catalog="system" width="128" height="122"/>
+        <image name="menu" width="40" height="40"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
