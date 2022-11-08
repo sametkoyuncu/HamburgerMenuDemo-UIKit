@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     func toggleMenu() {
         switch hamburgerMenuView.menuState {
         case .opened:
-            UIView.animate(withDuration: 0.5,
+            UIView.animate(withDuration: 0.8,
                            delay: 0,
                            usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0,
@@ -47,13 +47,13 @@ class ViewController: UIViewController {
             }
             hamburgerMenuView.menuState = .closed
         case .closed:
-            UIView.animate(withDuration: 0.5,
+            UIView.animate(withDuration: 0.8,
                            delay: 0,
                            usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0,
                            options: .curveEaseInOut) { [weak self] in
                 self?.hamburgerMenuView.frame.origin.x = -5
-                self?.menuButton.frame.origin.x = 270
+                self?.menuButton.frame.origin.x = 210
                 self?.menuButton.setImage(UIImage(named: "close"), for: .normal)
             }
             hamburgerMenuView.menuState = .opened
