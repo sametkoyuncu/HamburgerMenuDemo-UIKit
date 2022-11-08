@@ -7,16 +7,16 @@
 
 import UIKit
 
-protocol MenuViewDelegate: AnyObject {
-    func didCloseButtonTapped()
+enum MenuState {
+    case open
+    case close
 }
 
 @IBDesignable
 class MenuView: UIView {
     
-    var handleClick: (()->())?
-    
-    weak var delegate: MenuViewDelegate?
+    @IBOutlet var view: UIView!
+    var menuState: MenuState = .close
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,8 +34,31 @@ class MenuView: UIView {
   
     @IBAction func mBtn(_ sender: Any) {
         print("m")
+        switch menuState {
+        case .open:
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.view.frame.origin.x = -240
+            }
+            menuState = .close
+        case .close:
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.view.frame.origin.x = -0
+            }
+            menuState = .open
+        }
+
     }
+    
 }
+
 
 // delegate?.didCloseButtonTapped()
 
