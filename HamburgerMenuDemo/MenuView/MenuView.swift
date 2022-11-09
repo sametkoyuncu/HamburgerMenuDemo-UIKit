@@ -93,6 +93,7 @@ private extension MenuView {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "headerCell")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "rowCell")
@@ -143,10 +144,10 @@ extension MenuView: UITableViewDataSource {
             cell.backgroundColor = .clear
             
             cell.textLabel?.text = item.title
-            cell.textLabel?.textColor = .white
+            cell.textLabel?.textColor = .black
             let iconImage: UIImageView = .init(image: UIImage(systemName: item.isOpen ? "chevron.up" : "chevron.down"))
             cell.accessoryView = iconImage
-            cell.tintColor = .lightGray
+            cell.tintColor = .black
             
             return cell
             
@@ -161,9 +162,9 @@ extension MenuView: UITableViewDataSource {
             cell.backgroundColor = .clear
             
             cell.textLabel?.text = item.title
-            cell.textLabel?.textColor = .white
+            cell.textLabel?.textColor = .darkGray
             cell.imageView?.image = UIImage(systemName: item.icon)
-            cell.tintColor = .white
+            cell.tintColor = .darkGray
             
             return cell
         }
