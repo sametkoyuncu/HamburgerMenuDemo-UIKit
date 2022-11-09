@@ -24,10 +24,11 @@ struct MenuSection {
 }
 
 @IBDesignable
-class MenuView: UIView {
+final class MenuView: UIView {
+    @IBOutlet private weak var tableView: UITableView!
     
+    // for hiding or showing navigationBar
     weak var delegate: UIViewController?
-    @IBOutlet weak var tableView: UITableView!
     
     // Data
     var menuState: MenuState = .closed
@@ -70,7 +71,7 @@ class MenuView: UIView {
         toggleMenu()
     }
     
-    // MARK: - Open or close side menu. | You can call this from anywhere if you need.
+    // MARK: - Open or close side menu. | You can call this methods from anywhere if you need.
     func toggleMenu() {
         switch menuState {
         case .opened:
@@ -112,6 +113,7 @@ private extension MenuView {
             contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
         
+        // MARK: - table view config
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none

@@ -14,8 +14,27 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hamburgerMenuView.delegate = self
-        
-        // MARK: - gesture
+        setupGestures()
+        navBarConfig()
+    }
+    
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        hamburgerMenuView.toggleMenu()
+    }
+}
+
+private extension ViewController {
+    // MARK: - swipe methods
+    @objc private func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
+        hamburgerMenuView.swipeLeft()
+    }
+    
+    @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
+        hamburgerMenuView.swipeRight()
+    }
+    
+    // MARK: - gesture config
+    func setupGestures() {
         let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
         swipeGestureRecognizerLeft.direction = .left
         
@@ -25,8 +44,10 @@ class ViewController: UIViewController {
         swipeGestureRecognizerRight.direction = .right
         
         view.addGestureRecognizer(swipeGestureRecognizerRight)
-        
-        // MARK: - navbar
+    }
+    
+    // MARK: - navbar config
+    func navBarConfig() {
         navigationController?.navigationBar.prefersLargeTitles = false
         
         let appearance = UINavigationBarAppearance()
@@ -38,18 +59,5 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
-    }
-    
-    @objc private func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
-        hamburgerMenuView.swipeLeft()
-    }
-    
-    @objc private func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
-        hamburgerMenuView.swipeRight()
-    }
-    
-    @IBAction func menuButtonTapped(_ sender: Any) {
-        hamburgerMenuView.toggleMenu()
     }
 }
