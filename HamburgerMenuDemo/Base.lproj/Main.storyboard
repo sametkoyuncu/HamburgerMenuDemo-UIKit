@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,16 +19,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQN-UI-UgB">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlP-Pz-G6H">
-                                        <rect key="frame" x="135" y="402" width="120" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="jTf-KW-jyQ"/>
-                                            <constraint firstAttribute="height" constant="40" id="ucj-gT-0wu"/>
-                                        </constraints>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cvx-uB-d08">
+                                        <rect key="frame" x="11" y="54" width="64" height="54"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="menu"/>
                                         <connections>
-                                            <action selector="button:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qyR-GM-4s0"/>
+                                            <action selector="menuButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8ah-Uj-hLh"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arX-Jy-htC" customClass="MenuView" customModule="HamburgerMenuDemo" customModuleProvider="target">
@@ -39,14 +34,6 @@
                                             <constraint firstAttribute="width" constant="280" id="mmS-nt-pXP"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cvx-uB-d08">
-                                        <rect key="frame" x="11" y="54" width="64" height="54"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="menu"/>
-                                        <connections>
-                                            <action selector="menuButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8ah-Uj-hLh"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
@@ -54,9 +41,7 @@
                                     <constraint firstItem="arX-Jy-htC" firstAttribute="leading" secondItem="DQN-UI-UgB" secondAttribute="leading" constant="-285" id="4FW-PQ-pjn"/>
                                     <constraint firstItem="arX-Jy-htC" firstAttribute="top" secondItem="DQN-UI-UgB" secondAttribute="top" id="Aav-o6-TiM"/>
                                     <constraint firstAttribute="bottom" secondItem="arX-Jy-htC" secondAttribute="bottom" id="AoU-kC-58D"/>
-                                    <constraint firstItem="qlP-Pz-G6H" firstAttribute="centerX" secondItem="DQN-UI-UgB" secondAttribute="centerX" id="K7B-69-maZ"/>
                                     <constraint firstItem="Cvx-uB-d08" firstAttribute="leading" secondItem="arX-Jy-htC" secondAttribute="trailing" constant="16" id="nwE-W5-SvO"/>
-                                    <constraint firstItem="qlP-Pz-G6H" firstAttribute="centerY" secondItem="DQN-UI-UgB" secondAttribute="centerY" id="woB-Q5-g8a"/>
                                 </constraints>
                             </view>
                         </subviews>

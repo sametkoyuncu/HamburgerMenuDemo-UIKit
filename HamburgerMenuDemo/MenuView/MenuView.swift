@@ -12,18 +12,11 @@ enum MenuState {
     case closed
 }
 
-protocol MenuViewDelegate: AnyObject {
-    func didCloseButtonTap()
-}
-
 @IBDesignable
 class MenuView: UIView {
     @IBOutlet weak var tableView: UITableView!
     
-    var menuState: MenuState?
-    weak var delegate: MenuViewDelegate?
-    
-    var handleClick: (()->())?
+    var menuState: MenuState = .closed
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,14 +28,33 @@ class MenuView: UIView {
         commonInit()
     }
  
-    @IBAction func mBtn(_ sender: Any) {
-        delegate?.didCloseButtonTap()
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        toggleMenu()
     }
     
+    func toggleMenu() {
+        switch menuState {
+        case .opened:
+            UIView.animate(withDuration: 0.8,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.frame.origin.x = -285
+            }
+            menuState = .closed
+        case .closed:
+            UIView.animate(withDuration: 0.8,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.frame.origin.x = -5
+            }
+            menuState = .opened
+        }
+    }
 }
-
-
-// delegate?.didCloseButtonTapped()
 
 private extension MenuView {
     func commonInit() {
@@ -60,7 +72,7 @@ private extension MenuView {
 }
 
 
-// Mark: - TableView Delegate Methods
+// MARK: - TableView Delegate Methods
 extension MenuView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -68,7 +80,7 @@ extension MenuView: UITableViewDelegate {
     }
 }
 
-// Mark: - TableView DataSource Methods
+// MARK: - TableView DataSource Methods
 extension MenuView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 100
