@@ -74,11 +74,27 @@ class MenuView: UIView {
     func toggleMenu() {
         switch menuState {
         case .opened:
-            
             changeNavBarZPosition(to: 0)
             moveMenuOriginX(to: -285)
             menuState = .closed
         case .closed:
+            changeNavBarZPosition(to: -1)
+            moveMenuOriginX(to: -5)
+            menuState = .opened
+        }
+    }
+    
+    // MARK: - Swipe Methods
+    func swipeLeft() {
+        if menuState == .opened {
+            changeNavBarZPosition(to: 0)
+            moveMenuOriginX(to: -285)
+            menuState = .closed
+        }
+    }
+    
+    func swipeRight() {
+        if menuState == .closed {
             changeNavBarZPosition(to: -1)
             moveMenuOriginX(to: -5)
             menuState = .opened
