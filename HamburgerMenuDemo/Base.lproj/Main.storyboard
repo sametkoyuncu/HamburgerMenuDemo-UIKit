@@ -56,7 +56,6 @@
                     </view>
                     <connections>
                         <outlet property="hamburgerMenuView" destination="arX-Jy-htC" id="7mD-Bt-fn4"/>
-                        <outlet property="menuButton" destination="Cvx-uB-d08" id="VuA-oT-U5D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

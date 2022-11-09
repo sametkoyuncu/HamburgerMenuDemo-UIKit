@@ -27,6 +27,7 @@ struct MenuSection {
 class MenuView: UIView {
     @IBOutlet weak var tableView: UITableView!
     
+    // Data
     var menuState: MenuState = .closed
     var menuData: [MenuSection] = [ .init(isOpen: true,
                                           title: "Bölüm Bir",
@@ -63,30 +64,18 @@ class MenuView: UIView {
         commonInit()
     }
 
- 
     @IBAction func closeButtonTapped(_ sender: Any) {
         toggleMenu()
     }
     
+    // MARK: - Open or close side menu. | You can call this from anywhere if you need.
     func toggleMenu() {
         switch menuState {
         case .opened:
-            UIView.animate(withDuration: 0.8,
-                           delay: 0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 0,
-                           options: .curveEaseInOut) { [weak self] in
-                self?.frame.origin.x = -285
-            }
+            moveMenuOriginX(to: -285)
             menuState = .closed
         case .closed:
-            UIView.animate(withDuration: 0.8,
-                           delay: 0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 0,
-                           options: .curveEaseInOut) { [weak self] in
-                self?.frame.origin.x = -5
-            }
+            moveMenuOriginX(to: -5)
             menuState = .opened
         }
     }
@@ -107,6 +96,17 @@ private extension MenuView {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "headerCell")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "rowCell")
+    }
+    
+    // menu animation
+    func moveMenuOriginX(to x: CGFloat) {
+        UIView.animate(withDuration: 0.8,
+                       delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseInOut) { [weak self] in
+            self?.frame.origin.x = x
+        }
     }
 }
 
