@@ -12,6 +12,17 @@ enum MenuState {
     case closed
 }
 
+struct MenuItem {
+    var title = String()
+    var icon = "info.circle"
+}
+
+struct MenuSection {
+    var isOpen: Bool = false
+    var title = String()
+    var items: [MenuItem]
+}
+
 protocol MenuViewDelegate: AnyObject {
     func didCloseButtonTap()
 }
@@ -19,6 +30,29 @@ protocol MenuViewDelegate: AnyObject {
 @IBDesignable
 class MenuView: UIView {
     @IBOutlet weak var tableView: UITableView!
+    
+    var menuData: [MenuSection] = [ .init(isOpen: true,
+                                          title: "Bölüm Bir",
+                                          items: [.init(title: "Item 1", icon: "house"),
+                                                  .init(title: "Item 2", icon: "phone"),
+                                                  .init(title: "Item 3", icon: "photo"),
+                                                  .init(title: "Item 4", icon: "xmark"),
+                                          ]),
+                                    .init(isOpen: false,
+                                          title: "Bölüm İki",
+                                          items: [.init(title: "Item 1", icon: "house"),
+                                                  .init(title: "Item 2", icon: "phone"),
+                                                  .init(title: "Item 3", icon: "photo"),
+                                          ]),
+                                    .init(isOpen: false,
+                                          title: "Bölüm Üç",
+                                          items: [.init(title: "Item 1", icon: "house"),
+                                                  .init(title: "Item 2", icon: "phone"),
+                                                  .init(title: "Item 3", icon: "photo"),
+                                                  .init(title: "Item 4", icon: "xmark"),
+                                                  .init(title: "Item 5"),
+                                          ]),
+    ]
     
     var menuState: MenuState?
     weak var delegate: MenuViewDelegate?
@@ -34,7 +68,7 @@ class MenuView: UIView {
         super.init(coder: aDecoder)
         commonInit()
     }
- 
+    
     @IBAction func mBtn(_ sender: Any) {
         delegate?.didCloseButtonTap()
     }
@@ -56,31 +90,79 @@ private extension MenuView {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "headerCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "rowCell")
     }
 }
 
 
-// Mark: - TableView Delegate Methods
+// MARK: - TableView Delegate Methods
 extension MenuView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print(indexPath.row)
+        if indexPath.row == 0 {
+            menuData[indexPath.section].isOpen = !menuData[indexPath.section].isOpen
+            let sections = IndexSet.init(integer: indexPath.section)
+            tableView.reloadSections(sections, with: .automatic)
+        }
     }
 }
 
-// Mark: - TableView DataSource Methods
+// MARK: - TableView DataSource Methods
 extension MenuView: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        menuData.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        menuData[section].isOpen ? menuData[section].items.count + 1 : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.backgroundColor = .clear
-        cell.textLabel?.text = "Menu \(indexPath.row + 1)"
-        cell.textLabel?.textColor = .white
-        cell.layer.cornerRadius = 15
-        cell.clipsToBounds = true
-        return cell
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") else {
+                return UITableViewCell()
+            }
+            let item = menuData[indexPath.section]
+            
+            cell.backgroundColor = .clear
+            
+            cell.textLabel?.text = item.title
+            cell.textLabel?.textColor = .white
+            let iconImage: UIImageView = .init(image: UIImage(systemName: item.isOpen ? "chevron.up" : "chevron.down"))
+            cell.accessoryView = iconImage
+            cell.tintColor = .lightGray
+            
+            return cell
+            
+        } else {
+            // use different cell if needed
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "rowCell") else {
+                return UITableViewCell()
+            }
+            
+            let item = menuData[indexPath.section].items[indexPath.row - 1]
+            
+            cell.backgroundColor = .clear
+            
+            cell.textLabel?.text = item.title
+            cell.textLabel?.textColor = .white
+            cell.imageView?.image = UIImage(systemName: item.icon)
+            cell.tintColor = .white
+            
+            return cell
+        }
+        
+        // MARK: - old
+        //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
+        //
+        //        cell.backgroundColor = .clear
+        //        cell.textLabel?.text = "Menu \(indexPath.row + 1)"
+        //        cell.textLabel?.textColor = .white
+        //        cell.layer.cornerRadius = 15
+        //        cell.clipsToBounds = true
+        //
+        //        return cell
     }
 }
