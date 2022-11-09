@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        hamburgerMenuView.delegate = self
     }
     
     @IBAction func menuButtonTapped(_ sender: Any) {

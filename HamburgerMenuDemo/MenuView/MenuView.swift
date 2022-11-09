@@ -25,6 +25,8 @@ struct MenuSection {
 
 @IBDesignable
 class MenuView: UIView {
+    
+    weak var delegate: UIViewController?
     @IBOutlet weak var tableView: UITableView!
     
     // Data
@@ -72,9 +74,12 @@ class MenuView: UIView {
     func toggleMenu() {
         switch menuState {
         case .opened:
+            
+            changeNavBarZPosition(to: 0)
             moveMenuOriginX(to: -285)
             menuState = .closed
         case .closed:
+            changeNavBarZPosition(to: -1)
             moveMenuOriginX(to: -5)
             menuState = .opened
         }
@@ -107,6 +112,19 @@ private extension MenuView {
                        initialSpringVelocity: 0,
                        options: .curveEaseInOut) { [weak self] in
             self?.frame.origin.x = x
+        }
+    }
+    
+    // MARK: - Show or hide navigationBar
+    func changeNavBarZPosition(to position: CGFloat) {
+        if position == 0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.delegate?.navigationController?.navigationBar.layer.zPosition = position;
+            }
+            delegate?.navigationController?.navigationBar.isUserInteractionEnabled = true
+        } else {
+            delegate?.navigationController?.navigationBar.layer.zPosition = position;
+            delegate?.navigationController?.navigationBar.isUserInteractionEnabled = false
         }
     }
 }
