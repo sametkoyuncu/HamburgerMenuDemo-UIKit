@@ -12,51 +12,17 @@ enum MenuState {
     case closed
 }
 
-struct MenuItem {
-    var title = String()
-    var icon = "info.circle"
-}
-
-struct MenuSection {
-    var isOpen: Bool = false
-    var title = String()
-    var items: [MenuItem]
-}
-
 @IBDesignable
 final class MenuView: UIView {
     @IBOutlet private weak var tableView: UITableView!
     
-    // for hiding or showing navigationBar
+    // for configurations
     weak var delegate: UIViewController?
     
     // Data
     var menuState: MenuState = .closed
-    var menuData: [MenuSection] = [ .init(isOpen: true,
-                                          title: "Bölüm Bir",
-                                          items: [.init(title: "Item 1", icon: "house"),
-                                                  .init(title: "Item 2", icon: "phone"),
-                                                  .init(title: "Item 3", icon: "photo"),
-                                                  .init(title: "Item 4", icon: "xmark"),
-                                          ]),
-                                    .init(isOpen: false,
-                                          title: "Bölüm İki",
-                                          items: [.init(title: "Item 1", icon: "house"),
-                                                  .init(title: "Item 2", icon: "phone"),
-                                                  .init(title: "Item 3", icon: "photo"),
-                                          ]),
-                                    .init(isOpen: false,
-                                          title: "Bölüm Üç",
-                                          items: [.init(title: "Item 1", icon: "house"),
-                                                  .init(title: "Item 2", icon: "phone"),
-                                                  .init(title: "Item 3", icon: "photo"),
-                                                  .init(title: "Item 4", icon: "xmark"),
-                                                  .init(title: "Item 5"),
-                                          ]),
-    ]
-    
-
-    
+    var menuData = Data.menuData
+  
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -66,45 +32,46 @@ final class MenuView: UIView {
         super.init(coder: aDecoder)
         commonInit()
     }
+    
+    func configure(for vc: UIViewController) {
+        delegate = vc
+        setupGestures()
+        navBarConfig()
+    }
 
     @IBAction func closeButtonTapped(_ sender: Any) {
         toggleMenu()
     }
-    
+}
+
+extension MenuView {
     // MARK: - Open or close side menu. | You can call this methods from anywhere if you need.
     func toggleMenu() {
         switch menuState {
         case .opened:
-            changeNavBarZPosition(to: 0)
-            moveMenuOriginX(to: -285)
+            closeMenu()
             menuState = .closed
         case .closed:
-            changeNavBarZPosition(to: -1)
-            moveMenuOriginX(to: -5)
-            menuState = .opened
+            openMenu()
         }
     }
     
-    // MARK: - Swipe Methods
-    func swipeLeft() {
-        if menuState == .opened {
-            changeNavBarZPosition(to: 0)
-            moveMenuOriginX(to: -285)
-            menuState = .closed
-        }
+    func openMenu() {
+        changeNavBarZPosition(to: -1)
+        moveMenuOriginX(to: -5)
+        menuState = .opened
     }
     
-    func swipeRight() {
-        if menuState == .closed {
-            changeNavBarZPosition(to: -1)
-            moveMenuOriginX(to: -5)
-            menuState = .opened
-        }
+    func closeMenu() {
+        changeNavBarZPosition(to: 0)
+        moveMenuOriginX(to: -285)
+        menuState = .closed
     }
 }
 
 private extension MenuView {
     func commonInit() {
+        // connect MenuView.xid file and MenuView.class file
         let bundle = Bundle(for: MenuView.self)
         
         if let viewToAdd = bundle.loadNibNamed("MenuView", owner: self, options: nil), let contentView = viewToAdd.first as? UIView {
@@ -122,7 +89,20 @@ private extension MenuView {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "rowCell")
     }
     
-    // menu animation
+    // MARK: - Swipe Methods
+    @objc func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
+        if menuState == .opened {
+            closeMenu()
+        }
+    }
+    
+    @objc func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
+        if menuState == .closed {
+            openMenu()
+        }
+    }
+    
+    // MARK: - menu animations
     func moveMenuOriginX(to x: CGFloat) {
         UIView.animate(withDuration: 0.8,
                        delay: 0,
@@ -131,6 +111,34 @@ private extension MenuView {
                        options: .curveEaseInOut) { [weak self] in
             self?.frame.origin.x = x
         }
+    }
+    
+    // MARK: - setup gestures | open or close menu using left and right swipe
+    func setupGestures() {
+        let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
+        swipeGestureRecognizerLeft.direction = .left
+        
+        delegate?.view.addGestureRecognizer(swipeGestureRecognizerLeft)
+        
+        let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
+        swipeGestureRecognizerRight.direction = .right
+        
+        delegate?.view.addGestureRecognizer(swipeGestureRecognizerRight)
+    }
+    
+    // MARK: - navbar config | navbar background color etc.
+    func navBarConfig() {
+        delegate?.navigationController?.navigationBar.prefersLargeTitles = false
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        delegate?.navigationController?.navigationBar.tintColor = .black
+        delegate?.navigationController?.navigationBar.standardAppearance = appearance
+        delegate?.navigationController?.navigationBar.compactAppearance = appearance
+        delegate?.navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     // MARK: - Show or hide navigationBar
@@ -147,6 +155,8 @@ private extension MenuView {
     }
 }
 
+
+// TODO: - Move to another nib file
 
 // MARK: - TableView Delegate Methods
 extension MenuView: UITableViewDelegate {

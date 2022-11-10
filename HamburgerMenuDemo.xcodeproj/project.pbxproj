@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C59ED495291CE5D700D883D5 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59ED494291CE5D700D883D5 /* MenuModel.swift */; };
 		F1E2DCD629198C2000E5915F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2DCD529198C2000E5915F /* AppDelegate.swift */; };
 		F1E2DCD829198C2000E5915F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2DCD729198C2000E5915F /* SceneDelegate.swift */; };
 		F1E2DCDA29198C2000E5915F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2DCD929198C2000E5915F /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C59ED494291CE5D700D883D5 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		F1E2DCD229198C2000E5915F /* HamburgerMenuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HamburgerMenuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E2DCD529198C2000E5915F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1E2DCD729198C2000E5915F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			children = (
 				F1E2DCE929198C7C00E5915F /* MenuView.xib */,
 				F1E2DCEB29198D4A00E5915F /* MenuView.swift */,
+				C59ED494291CE5D700D883D5 /* MenuModel.swift */,
 			);
 			path = MenuView;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1E2DCDA29198C2000E5915F /* ViewController.swift in Sources */,
+				C59ED495291CE5D700D883D5 /* MenuModel.swift in Sources */,
 				F1E2DCEC29198D4A00E5915F /* MenuView.swift in Sources */,
 				F1E2DCD629198C2000E5915F /* AppDelegate.swift in Sources */,
 				F1E2DCD829198C2000E5915F /* SceneDelegate.swift in Sources */,
