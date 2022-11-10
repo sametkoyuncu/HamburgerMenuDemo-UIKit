@@ -19,9 +19,9 @@ extension MenuView: UITableViewDelegate {
             tableView.reloadSections(sections, with: .automatic)
         } else {
             closeMenu()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "SecondVC") as! SecondViewController
-            delegate?.navigationController?.pushViewController(vc, animated: true)
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "SecondVC") as! SecondViewController
+//            delegate?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

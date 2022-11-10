@@ -20,17 +20,24 @@ final class MenuView: UIView {
     
     // Data
     private var menuState: MenuState = .closed
-  
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
+    }
+    
+    init(frame: CGRect, vc: UIViewController) {
+        super.init(frame: frame)
+        commonInit()
+        vc.view.addSubview(self)
+        configure(for: vc)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
-    
+    // TODO: mamşalmapoamof
     func configure(for vc: UIViewController) {
         delegate = vc
         setupGestures()
@@ -39,6 +46,7 @@ final class MenuView: UIView {
 }
 
 extension MenuView {
+    
     @IBAction func closeButtonTapped(_ sender: Any) {
         toggleMenu()
     }
