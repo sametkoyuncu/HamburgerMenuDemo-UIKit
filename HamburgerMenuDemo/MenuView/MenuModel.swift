@@ -20,7 +20,7 @@ struct MenuSection {
 }
 
 struct Data {
-    static  var menuData: [MenuSection] = [ .init(isOpen: true,
+    static var menuData: [MenuSection] = [ .init(isOpen: true,
                                                   title: "Bölüm Bir",
                                                   items: [.init(title: "Item 1", icon: "house"),
                                                           .init(title: "Item 2", icon: "phone"),

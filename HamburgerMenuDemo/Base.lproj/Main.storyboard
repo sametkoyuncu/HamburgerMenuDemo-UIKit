@@ -63,14 +63,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1860" y="-45"/>
+            <point key="canvasLocation" x="1469" y="-45"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9to-kh-iz7">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fWs-du-1OA" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IM0-8l-Mn7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IM0-8l-Mn7" customClass="CustomNavigationBar" customModule="HamburgerMenuDemo" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

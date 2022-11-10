@@ -4,7 +4,6 @@
 //
 //  Created by Samet Koyuncu on 7.11.2022.
 //
-
 import UIKit
 
 enum MenuState {
@@ -20,8 +19,7 @@ final class MenuView: UIView {
     weak var delegate: UIViewController?
     
     // Data
-    var menuState: MenuState = .closed
-    var menuData = Data.menuData
+    private var menuState: MenuState = .closed
   
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,13 +36,13 @@ final class MenuView: UIView {
         setupGestures()
         navBarConfig()
     }
-
-    @IBAction func closeButtonTapped(_ sender: Any) {
-        toggleMenu()
-    }
 }
 
 extension MenuView {
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        toggleMenu()
+    }
+    
     // MARK: - Open or close side menu. | You can call this methods from anywhere if you need.
     func toggleMenu() {
         switch menuState {
@@ -118,11 +116,11 @@ private extension MenuView {
         let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
         swipeGestureRecognizerLeft.direction = .left
         
-        delegate?.view.addGestureRecognizer(swipeGestureRecognizerLeft)
-        
         let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
         swipeGestureRecognizerRight.direction = .right
         
+        
+        delegate?.view.addGestureRecognizer(swipeGestureRecognizerLeft)
         delegate?.view.addGestureRecognizer(swipeGestureRecognizerRight)
     }
     
@@ -131,6 +129,7 @@ private extension MenuView {
         delegate?.navigationController?.navigationBar.prefersLargeTitles = false
         
         let appearance = UINavigationBarAppearance()
+        
         appearance.backgroundColor = .white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -151,68 +150,6 @@ private extension MenuView {
         } else {
             delegate?.navigationController?.navigationBar.layer.zPosition = position;
             delegate?.navigationController?.navigationBar.isUserInteractionEnabled = false
-        }
-    }
-}
-
-
-// TODO: - Move to another nib file
-
-// MARK: - TableView Delegate Methods
-extension MenuView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0 {
-            menuData[indexPath.section].isOpen = !menuData[indexPath.section].isOpen
-            let sections = IndexSet.init(integer: indexPath.section)
-            tableView.reloadSections(sections, with: .automatic)
-        }
-    }
-}
-
-// MARK: - TableView DataSource Methods
-extension MenuView: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        menuData.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        menuData[section].isOpen ? menuData[section].items.count + 1 : 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") else {
-                return UITableViewCell()
-            }
-            let item = menuData[indexPath.section]
-            
-            cell.backgroundColor = .clear
-            
-            cell.textLabel?.text = item.title
-            cell.textLabel?.textColor = .black
-            let iconImage: UIImageView = .init(image: UIImage(systemName: item.isOpen ? "chevron.up" : "chevron.down"))
-            cell.accessoryView = iconImage
-            cell.tintColor = .black
-            
-            return cell
-            
-        } else {
-            // use different cell if needed
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "rowCell") else {
-                return UITableViewCell()
-            }
-            
-            let item = menuData[indexPath.section].items[indexPath.row - 1]
-            
-            cell.backgroundColor = .clear
-            
-            cell.textLabel?.text = item.title
-            cell.textLabel?.textColor = .darkGray
-            cell.imageView?.image = UIImage(systemName: item.icon)
-            cell.tintColor = .darkGray
-            
-            return cell
         }
     }
 }
