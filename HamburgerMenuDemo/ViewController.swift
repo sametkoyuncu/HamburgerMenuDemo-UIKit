@@ -9,14 +9,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var hamburgerMenuView: MenuView!
+    var menuView: MenuView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // hamburgerMenuView.configure(for: self)
+        menuView = MenuView(vc: self)
     }
     
     @IBAction func menuButtonTapped(_ sender: Any) {
-        hamburgerMenuView.toggleMenu()
+        menuView.toggleMenu()
     }
 }

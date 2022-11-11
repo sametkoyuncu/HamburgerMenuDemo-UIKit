@@ -21,12 +21,13 @@ final class MenuView: UIView {
     // Data
     private var menuState: MenuState = .closed
     
-    override init(frame: CGRect) {
+    private override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
     
-    init(frame: CGRect, vc: UIViewController) {
+    init(vc: UIViewController) {
+        let frame = CGRect(x: -285, y: 0, width: 280, height: vc.view.frame.height)
         super.init(frame: frame)
         commonInit()
         vc.view.addSubview(self)
