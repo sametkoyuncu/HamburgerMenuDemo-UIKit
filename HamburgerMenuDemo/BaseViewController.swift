@@ -12,7 +12,7 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        menuView = MenuView(vc: self)
+        menuView = MenuView(vc: self, width: 280, position: .right)
     }
     
     func toggleMenu() {

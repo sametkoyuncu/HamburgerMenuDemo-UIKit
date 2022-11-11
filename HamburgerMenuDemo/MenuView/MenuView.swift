@@ -11,6 +11,11 @@ enum MenuState {
     case closed
 }
 
+enum MenuPosition: CGFloat {
+    case left = -1
+    case right = 1
+}
+
 @IBDesignable
 final class MenuView: UIView {
     @IBOutlet private weak var tableView: UITableView!
@@ -20,28 +25,33 @@ final class MenuView: UIView {
     
     // Data
     private var menuState: MenuState = .closed
+    private var menuPosition: MenuPosition = .left
     
     private override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
     
-    init(vc: UIViewController) {
-        let frame = CGRect(x: -285, y: 0, width: 280, height: vc.view.frame.height)
-        super.init(frame: frame)
-        commonInit()
-        self.isHidden = true
-        vc.view.addSubview(self)
-        configure(for: vc)
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
-    // TODO: mamşalmapoamof
-    func configure(for vc: UIViewController) {
+    
+    init(vc: UIViewController, width: CGFloat, position: MenuPosition = .left) {
+        self.menuPosition = position
         delegate = vc
+        let x = position == .left ? -(width + 5) : vc.view.frame.width + 5
+        let frame = CGRect(x: x,
+                           y: 0,
+                           width: width,
+                           height: vc.view.frame.height)
+        
+        super.init(frame: frame)
+        commonInit()
+        
+        self.isHidden = true
+        vc.view.addSubview(self)
+        
         setupGestures()
         navBarConfig()
     }
@@ -58,7 +68,6 @@ extension MenuView {
         switch menuState {
         case .opened:
             closeMenu()
-            menuState = .closed
         case .closed:
             openMenu()
         }
@@ -73,14 +82,13 @@ extension MenuView {
     func closeMenu() {
         changeNavBarZPosition(to: 0)
         updateMenuOriginX(for: .closed)
-        //moveMenuOriginX(to: -285)
         menuState = .closed
     }
 }
 
 private extension MenuView {
     func commonInit() {
-        // connect MenuView.xid file and MenuView.class file
+        // connect MenuView.xib file and MenuView.class file
         let bundle = Bundle(for: MenuView.self)
         
         if let viewToAdd = bundle.loadNibNamed("MenuView", owner: self, options: nil), let contentView = viewToAdd.first as? UIView {
@@ -89,7 +97,7 @@ private extension MenuView {
             contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
         
-        // MARK: - table view config
+        // table view config
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -100,14 +108,28 @@ private extension MenuView {
     
     // MARK: - Swipe Methods
     @objc func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
-        if menuState == .opened {
-            closeMenu()
+        switch menuPosition {
+        case .left:
+            if menuState == .opened {
+                closeMenu()
+            }
+        case .right:
+            if menuState == .closed {
+                openMenu()
+            }
         }
     }
     
     @objc func didSwipeRight(_ sender: UISwipeGestureRecognizer) {
-        if menuState == .closed {
-            openMenu()
+        switch menuPosition {
+        case .left:
+            if menuState == .closed {
+                openMenu()
+            }
+        case .right:
+            if menuState == .opened {
+                closeMenu()
+            }
         }
     }
     
@@ -118,9 +140,16 @@ private extension MenuView {
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0,
                        options: .curveEaseInOut) { [weak self] in
-            self?.frame.origin.x = status == .opened ? -5 : -((self?.frame.width ?? 0) - 5)
+            guard let self = self else { return }
+            switch self.menuPosition {
+            case .left:
+                self.frame.origin.x = status == .opened ?  -5 : -(self.frame.width + 5)
+            case .right:
+                self.frame.origin.x = status == .opened ?  self.delegate!.view.frame.width - (self.frame.width - 5) : self.delegate!.view.frame.width + 5
+            }
         }
-        // for navigation controller pop event
+        
+        // for navigation controller pop event, delay important for animations
         switch status {
         case .opened:
             self.isHidden = false
