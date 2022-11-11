@@ -7,16 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
-    var menuView: MenuView!
-    
+class ViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        menuView = MenuView(vc: self)
     }
     
-    @IBAction func menuButtonTapped(_ sender: Any) {
-        menuView.toggleMenu()
+    @IBAction override func menuButtonTapped(_ sender: Any) {
+        super.menuButtonTapped(sender)
     }
 }
