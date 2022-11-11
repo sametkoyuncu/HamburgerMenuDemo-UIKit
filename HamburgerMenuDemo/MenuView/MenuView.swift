@@ -30,6 +30,7 @@ final class MenuView: UIView {
         let frame = CGRect(x: -285, y: 0, width: 280, height: vc.view.frame.height)
         super.init(frame: frame)
         commonInit()
+        self.isHidden = true
         vc.view.addSubview(self)
         configure(for: vc)
     }
@@ -65,13 +66,14 @@ extension MenuView {
     
     func openMenu() {
         changeNavBarZPosition(to: -1)
-        moveMenuOriginX(to: -5)
+        updateMenuOriginX(for: .opened)
         menuState = .opened
     }
     
     func closeMenu() {
         changeNavBarZPosition(to: 0)
-        moveMenuOriginX(to: -285)
+        updateMenuOriginX(for: .closed)
+        //moveMenuOriginX(to: -285)
         menuState = .closed
     }
 }
@@ -110,18 +112,19 @@ private extension MenuView {
     }
     
     // MARK: - menu animations
-    func moveMenuOriginX(to x: CGFloat) {
+    func updateMenuOriginX(for status: MenuState) {
         UIView.animate(withDuration: 0.8,
                        delay: 0,
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0,
                        options: .curveEaseInOut) { [weak self] in
-            self?.frame.origin.x = x
+            self?.frame.origin.x = status == .opened ? -5 : -((self?.frame.width ?? 0) - 5)
         }
         // for navigation controller pop event
-        if x == -5 {
+        switch status {
+        case .opened:
             self.isHidden = false
-        } else {
+        case .closed:
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                 self?.isHidden = true
             }
