@@ -6,11 +6,17 @@
 //
 
 import Foundation
+import UIKit
 
+enum StoryBoardID: String {
+    case green = "HomeVC"
+    case purple = "PurpleVC"
+}
 
 struct MenuItem {
     var title = String()
     var icon = "info.circle"
+    var storyboadID: StoryBoardID
 }
 
 struct MenuSection {
@@ -21,25 +27,8 @@ struct MenuSection {
 
 struct Data {
     static var menuData: [MenuSection] = [ .init(isOpen: true,
-                                                  title: "Bölüm Bir",
-                                                  items: [.init(title: "Item 1", icon: "house"),
-                                                          .init(title: "Item 2", icon: "phone"),
-                                                          .init(title: "Item 3", icon: "photo"),
-                                                          .init(title: "Item 4", icon: "xmark"),
-                                                  ]),
-                                            .init(isOpen: false,
-                                                  title: "Bölüm İki",
-                                                  items: [.init(title: "Item 1", icon: "house"),
-                                                          .init(title: "Item 2", icon: "phone"),
-                                                          .init(title: "Item 3", icon: "photo"),
-                                                  ]),
-                                            .init(isOpen: false,
-                                                  title: "Bölüm Üç",
-                                                  items: [.init(title: "Item 1", icon: "house"),
-                                                          .init(title: "Item 2", icon: "phone"),
-                                                          .init(title: "Item 3", icon: "photo"),
-                                                          .init(title: "Item 4", icon: "xmark"),
-                                                          .init(title: "Item 5"),
-                                                  ]),
-            ]
+                                                 title: "Bölüm Bir",
+                                                 items: [.init(title: "Home", icon: "house", storyboadID: .green),
+                                                         .init(title: "Purple", icon: "phone", storyboadID: .purple)
+                                                 ])]
 }

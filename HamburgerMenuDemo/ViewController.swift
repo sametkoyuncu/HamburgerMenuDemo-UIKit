@@ -12,7 +12,7 @@ class ViewController: BaseViewController {
         super.viewDidLoad()
     }
     
-    @IBAction override func menuButtonTapped(_ sender: Any) {
-        super.menuButtonTapped(sender)
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        super.openMenu()
     }
 }

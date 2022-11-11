@@ -18,9 +18,20 @@ extension MenuView: UITableViewDelegate {
             let sections = IndexSet.init(integer: indexPath.section)
             tableView.reloadSections(sections, with: .automatic)
         } else {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = storyboard.instantiateViewController(withIdentifier: "SecondVC") as! SecondViewController
-//            delegate?.navigationController?.pushViewController(vc, animated: true)
+            closeMenu()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let item = menuData[indexPath.section].items[indexPath.row-1]
+            var vc: UIViewController
+            
+            switch item.storyboadID {
+                
+            case .green:
+                vc = storyboard.instantiateViewController(withIdentifier: item.storyboadID.rawValue) as! ViewController
+            case .purple:
+                vc = storyboard.instantiateViewController(withIdentifier: item.storyboadID.rawValue) as! PurpleViewController
+            }
+            
+            delegate?.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

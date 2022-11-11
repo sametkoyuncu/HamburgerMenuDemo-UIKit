@@ -8,14 +8,22 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    var menuView: MenuView!
+    private var menuView: MenuView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         menuView = MenuView(vc: self)
     }
     
-    @IBAction func menuButtonTapped(_ sender: Any) {
+    func toggleMenu() {
         menuView.toggleMenu()
+    }
+    
+    func openMenu() {
+        menuView.openMenu()
+    }
+    
+    func closeMenu() {
+        menuView.closeMenu()
     }
 }

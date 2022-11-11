@@ -11,7 +11,7 @@
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Home" id="BYZ-38-t0r" customClass="ViewController" customModule="HamburgerMenuDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" title="Home" id="BYZ-38-t0r" customClass="ViewController" customModule="HamburgerMenuDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="-45"/>
+            <point key="canvasLocation" x="1103" y="-45"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9to-kh-iz7">
@@ -66,14 +66,94 @@
             </objects>
             <point key="canvasLocation" x="175" y="-45"/>
         </scene>
+        <!--Purple-->
+        <scene sceneID="0KR-mb-2yI">
+            <objects>
+                <viewController storyboardIdentifier="PurpleVC" id="Grw-jm-vun" customClass="PurpleViewController" customModule="HamburgerMenuDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="23w-ay-5qe">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Le-Wy-tRe">
+                                <rect key="frame" x="272" y="407" width="67" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="pushTapped:" destination="Grw-jm-vun" eventType="touchUpInside" id="GaX-pw-69y"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="alP-NB-1jz"/>
+                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Purple" id="p8b-ze-9Zf">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="9EE-vz-ki0">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="qcD-Yw-f9Q">
+                                <rect key="frame" x="16.000000000000007" y="5" width="105.66666666666669" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="list.bullet.rectangle.fill" catalog="system" title="Button"/>
+                                <connections>
+                                    <action selector="menuButtonTapped:" destination="Grw-jm-vun" eventType="touchUpInside" id="dtQ-ge-1ha"/>
+                                </connections>
+                            </button>
+                            <color key="tintColor" systemColor="systemPurpleColor"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zb1-BE-ZyL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1103" y="626"/>
+        </scene>
+        <!--Red View Controller-->
+        <scene sceneID="SUb-zO-YEW">
+            <objects>
+                <viewController storyboardIdentifier="RedVC" id="hD5-hk-En8" customClass="RedViewController" customModule="HamburgerMenuDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nYu-z2-SLr">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="K2v-Cb-RG9"/>
+                        <color key="backgroundColor" systemColor="systemPinkColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s60-k0-sjr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2033" y="626"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="82M-rQ-8bw">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tA4-Au-NL1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="PurpleNVC" automaticallyAdjustsScrollViewInsets="NO" id="k5A-1s-Wvu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="I7N-eB-49N">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Grw-jm-vun" kind="relationship" relationship="rootViewController" id="2M6-TM-y1q"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="174" y="626"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="list.bullet.rectangle.fill" catalog="system" width="128" height="93"/>
         <image name="menu" width="40" height="40"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -118,6 +118,14 @@ private extension MenuView {
                        options: .curveEaseInOut) { [weak self] in
             self?.frame.origin.x = x
         }
+        // for navigation controller pop event
+        if x == -5 {
+            self.isHidden = false
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.isHidden = true
+            }
+        }
     }
     
     // MARK: - setup gestures | open or close menu using left and right swipe
