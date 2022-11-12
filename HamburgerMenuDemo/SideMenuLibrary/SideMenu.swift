@@ -6,21 +6,12 @@
 //
 import UIKit
 
-enum MenuState {
-    case opened
-    case closed
-}
-
-enum MenuPosition {
-    case left
-    case right
-}
-
 final class SideMenu: UIView {
     // for configurations
+    // TODO: delegate may be use a protocol
     weak var delegate: UIViewController?
     
-    // Data
+    // States
     private var menuState: MenuState = .closed
     private var menuPosition: MenuPosition = .left
     
@@ -32,22 +23,28 @@ final class SideMenu: UIView {
         super.init(coder: aDecoder)
     }
     
-    init(vc: UIViewController, customView: UIView, position: MenuPosition = .left) {
-        let width = customView.frame.width
-        let x = position == .left ? -(width + 5) : vc.view.frame.width + 5
+    init(_ menuConfig: MenuConfig) {
+        // get view width and x position
+        let width = menuConfig.customView.frame.width
+        let x = menuConfig.position == .left ? -(width + 5) : menuConfig.vc.view.frame.width + 5
+        // create frame using properties for our view
         let frame = CGRect(x: x,
                            y: 0,
                            width: width,
-                           height: vc.view.frame.height)
+                           height: menuConfig.vc.view.frame.height)
         super.init(frame: frame)
         
         self.isHidden = true
-        self.addSubview(customView)
-        vc.view.addSubview(self)
+        self.addSubview(menuConfig.customView)
+        menuConfig.vc.view.addSubview(self)
         
-        self.menuPosition = position
-        self.delegate = vc
+        // set stored properties
+        self.menuPosition = menuConfig.position
+        self.delegate = menuConfig.vc
+        
+        // setup gestures and configure navbar
         setupGestures()
+        // TODO: this must be optional and has take custom styles
         navBarConfig()
     }
 }
