@@ -13,37 +13,42 @@ private var menuData = Data.menuData
 extension MenuView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let section = menuData.sections[indexPath.section]
         if indexPath.row == 0 {
-            menuData[indexPath.section].isOpen = !menuData[indexPath.section].isOpen
+            menuData.sections[indexPath.section].isOpen = !section.isOpen
             let sections = IndexSet.init(integer: indexPath.section)
             tableView.reloadSections(sections, with: .automatic)
-        } else {
-            closeMenu()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let item = menuData[indexPath.section].items[indexPath.row-1]
-            var vc: UIViewController
+        } else if menuData.selectedItem != section.items[indexPath.row - 1].title {
+            toggleMenu?()
+            let selectedItem = section.items[indexPath.row-1]
+            // update selected item
+            menuData.selectedItem = selectedItem.title
             
-            switch item.storyboadID {
-                
+            // navigation
+            var vc: UIViewController
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            switch selectedItem.storyboadID {
             case .green:
-                vc = storyboard.instantiateViewController(withIdentifier: item.storyboadID.rawValue) as! ViewController
+                vc = storyboard.instantiateViewController(withIdentifier: selectedItem.storyboadID.rawValue) as! ViewController
             case .purple:
-                vc = storyboard.instantiateViewController(withIdentifier: item.storyboadID.rawValue) as! PurpleViewController
+                vc = storyboard.instantiateViewController(withIdentifier: selectedItem.storyboadID.rawValue) as! PurpleViewController
             }
             
             delegate?.navigationController?.pushViewController(vc, animated: true)
         }
+        
     }
 }
 
 // MARK: - TableView DataSource Methods
 extension MenuView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        menuData.count
+        menuData.sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        menuData[section].isOpen ? menuData[section].items.count + 1 : 1
+        menuData.sections[section].isOpen ? menuData.sections[section].items.count + 1 : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,7 +56,7 @@ extension MenuView: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell") else {
                 return UITableViewCell()
             }
-            let item = menuData[indexPath.section]
+            let item = menuData.sections[indexPath.section]
             
             cell.backgroundColor = .clear
             
@@ -69,14 +74,23 @@ extension MenuView: UITableViewDataSource {
                 return UITableViewCell()
             }
             
-            let item = menuData[indexPath.section].items[indexPath.row - 1]
+            let item = menuData.sections[indexPath.section].items[indexPath.row - 1]
             
             cell.backgroundColor = .clear
-            
+    
             cell.textLabel?.text = item.title
             cell.textLabel?.textColor = .darkGray
             cell.imageView?.image = UIImage(systemName: item.icon)
             cell.tintColor = .darkGray
+            cell.layer.cornerRadius = 8
+            
+            // TODO: all cell disabled after collapse and expand section
+            if menuData.selectedItem == item.title {
+                //cell.isUserInteractionEnabled = false
+                cell.backgroundColor = .lightGray
+                cell.tintColor = .white
+                cell.textLabel?.textColor = .white
+            }
             
             return cell
         }

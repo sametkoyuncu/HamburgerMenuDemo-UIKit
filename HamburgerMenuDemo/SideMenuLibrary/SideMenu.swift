@@ -1,8 +1,8 @@
 //
-//  MenuView.swift
+//  SideMenu.swift
 //  HamburgerMenuDemo
 //
-//  Created by Samet Koyuncu on 7.11.2022.
+//  Created by Samet Koyuncu on 12.11.2022.
 //
 import UIKit
 
@@ -11,15 +11,12 @@ enum MenuState {
     case closed
 }
 
-enum MenuPosition: CGFloat {
-    case left = -1
-    case right = 1
+enum MenuPosition {
+    case left
+    case right
 }
 
-@IBDesignable
-final class MenuView: UIView {
-    @IBOutlet private weak var tableView: UITableView!
-    
+final class SideMenu: UIView {
     // for configurations
     weak var delegate: UIViewController?
     
@@ -29,40 +26,33 @@ final class MenuView: UIView {
     
     private override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        commonInit()
     }
     
-    init(vc: UIViewController, width: CGFloat, position: MenuPosition = .left) {
-        self.menuPosition = position
-        delegate = vc
+    init(vc: UIViewController, customView: UIView, position: MenuPosition = .left) {
+        let width = customView.frame.width
         let x = position == .left ? -(width + 5) : vc.view.frame.width + 5
         let frame = CGRect(x: x,
                            y: 0,
                            width: width,
                            height: vc.view.frame.height)
-        
         super.init(frame: frame)
-        commonInit()
         
         self.isHidden = true
+        self.addSubview(customView)
         vc.view.addSubview(self)
         
+        self.menuPosition = position
+        self.delegate = vc
         setupGestures()
         navBarConfig()
     }
 }
 
-extension MenuView {
-    
-    @IBAction func closeButtonTapped(_ sender: Any) {
-        toggleMenu()
-    }
-    
+extension SideMenu {
     // MARK: - Open or close side menu. | You can call this methods from anywhere if you need.
     func toggleMenu() {
         switch menuState {
@@ -86,26 +76,7 @@ extension MenuView {
     }
 }
 
-private extension MenuView {
-    func commonInit() {
-        // connect MenuView.xib file and MenuView.class file
-        let bundle = Bundle(for: MenuView.self)
-        
-        if let viewToAdd = bundle.loadNibNamed("MenuView", owner: self, options: nil), let contentView = viewToAdd.first as? UIView {
-            addSubview(contentView)
-            contentView.frame = self.bounds
-            contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        }
-        
-        // table view config
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "headerCell")
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "rowCell")
-    }
-    
+private extension SideMenu {
     // MARK: - Swipe Methods
     @objc func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
         switch menuPosition {
@@ -202,3 +173,4 @@ private extension MenuView {
         }
     }
 }
+

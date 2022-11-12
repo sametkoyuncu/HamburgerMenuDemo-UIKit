@@ -5,14 +5,9 @@
 //  Created by fmss on 10.11.2022.
 //
 
-import Foundation
 import UIKit
 
-enum StoryBoardID: String {
-    case green = "HomeVC"
-    case purple = "PurpleVC"
-}
-
+// Menu List
 struct MenuItem {
     var title = String()
     var icon = "info.circle"
@@ -25,10 +20,21 @@ struct MenuSection {
     var items: [MenuItem]
 }
 
+struct MenuData {
+    var sections: [MenuSection]
+    var selectedItem: String?
+}
+
+enum StoryBoardID: String {
+    case green = "HomeVC"
+    case purple = "PurpleVC"
+}
+
 struct Data {
-    static var menuData: [MenuSection] = [ .init(isOpen: true,
+    static var menuSections: [MenuSection] = [ .init(isOpen: true,
                                                  title: "Bölüm Bir",
                                                  items: [.init(title: "Home", icon: "house", storyboadID: .green),
                                                          .init(title: "Purple", icon: "phone", storyboadID: .purple)
                                                  ])]
+    static var menuData = MenuData(sections: menuSections, selectedItem: menuSections.first?.items.first?.title ?? "Home")
 }
