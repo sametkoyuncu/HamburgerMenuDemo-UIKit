@@ -9,6 +9,7 @@ import UIKit
 @IBDesignable
 final class MenuView: UIView {
     @IBOutlet private weak var tableView: UITableView!
+    
     weak var delegate: UIViewController?
     var toggleMenu: (()->())?
     private override init(frame: CGRect) {

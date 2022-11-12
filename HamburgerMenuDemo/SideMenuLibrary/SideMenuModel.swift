@@ -16,6 +16,11 @@ enum MenuPosition {
     case right
 }
 
+enum NavBarStatus {
+    case show
+    case hide
+}
+
 struct MenuConfig {
     var vc: UIViewController
     var customView: UIView

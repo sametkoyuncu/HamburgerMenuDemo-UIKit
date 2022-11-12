@@ -61,13 +61,13 @@ extension SideMenu {
     }
     
     func openMenu() {
-        changeNavBarZPosition(to: -1)
+        changeNavBarStatus(to: .hide)
         updateMenuOriginX(for: .opened)
         menuState = .opened
     }
     
     func closeMenu() {
-        changeNavBarZPosition(to: 0)
+        changeNavBarStatus(to: .show)
         updateMenuOriginX(for: .closed)
         menuState = .closed
     }
@@ -117,7 +117,7 @@ private extension SideMenu {
             }
         }
         
-        // for navigation controller pop event, delay important for animations
+        // for navigation controller pop event (-!- delay, important for animations)
         switch status {
         case .opened:
             self.isHidden = false
@@ -158,15 +158,24 @@ private extension SideMenu {
     }
     
     // MARK: - Show or hide navigationBar
-    func changeNavBarZPosition(to position: CGFloat) {
-        if position == 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                self?.delegate?.navigationController?.navigationBar.layer.zPosition = position;
+    func changeNavBarStatus(to status: NavBarStatus) {
+        switch status {
+        case .show:
+            UIView.animate(withDuration: 0.8,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.delegate?.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: 0)
             }
-            delegate?.navigationController?.navigationBar.isUserInteractionEnabled = true
-        } else {
-            delegate?.navigationController?.navigationBar.layer.zPosition = position;
-            delegate?.navigationController?.navigationBar.isUserInteractionEnabled = false
+        case .hide:
+            UIView.animate(withDuration: 0.8,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.delegate?.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -200)
+            }
         }
     }
 }

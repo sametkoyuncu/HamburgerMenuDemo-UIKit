@@ -13,8 +13,12 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // menu view inside side menu
-        let menuView = MenuView(frame: CGRect(x: 0, y: 0, width: 280, height: UIScreen.main.bounds.height), vc: self) {
-            self.sideMenu.toggleMenu()
+        let menuView = MenuView(frame: CGRect(x: 0,
+                                              y: 0,
+                                              width: 280,
+                                              height: UIScreen.main.bounds.height),
+                                vc: self) {
+            self.sideMenu.closeMenu()
         }
         // side menu
         let config: MenuConfig = .init(vc: self, customView: menuView)

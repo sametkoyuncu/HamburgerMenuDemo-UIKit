@@ -14,7 +14,6 @@
 		C59ED4A9291E762700D883D5 /* RedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59ED4A8291E762700D883D5 /* RedViewController.swift */; };
 		F1629B5B291F8B9100056B26 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1629B5A291F8B9100056B26 /* SideMenu.swift */; };
 		F166F3F6291FA85E0046525D /* SideMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F166F3F5291FA85E0046525D /* SideMenuModel.swift */; };
-		F166F3F8291FA9550046525D /* SideMenuProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F166F3F7291FA9550046525D /* SideMenuProtocols.swift */; };
 		F1E2DCD629198C2000E5915F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2DCD529198C2000E5915F /* AppDelegate.swift */; };
 		F1E2DCD829198C2000E5915F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2DCD729198C2000E5915F /* SceneDelegate.swift */; };
 		F1E2DCDA29198C2000E5915F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2DCD929198C2000E5915F /* ViewController.swift */; };
@@ -33,7 +32,6 @@
 		C59ED4A8291E762700D883D5 /* RedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedViewController.swift; sourceTree = "<group>"; };
 		F1629B5A291F8B9100056B26 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		F166F3F5291FA85E0046525D /* SideMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuModel.swift; sourceTree = "<group>"; };
-		F166F3F7291FA9550046525D /* SideMenuProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuProtocols.swift; sourceTree = "<group>"; };
 		F1E2DCD229198C2000E5915F /* HamburgerMenuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HamburgerMenuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E2DCD529198C2000E5915F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1E2DCD729198C2000E5915F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 			children = (
 				F1629B5A291F8B9100056B26 /* SideMenu.swift */,
 				F166F3F5291FA85E0046525D /* SideMenuModel.swift */,
-				F166F3F7291FA9550046525D /* SideMenuProtocols.swift */,
 			);
 			path = SideMenuLibrary;
 			sourceTree = "<group>";
@@ -226,7 +223,6 @@
 				F166F3F6291FA85E0046525D /* SideMenuModel.swift in Sources */,
 				F1E2DCD629198C2000E5915F /* AppDelegate.swift in Sources */,
 				F1629B5B291F8B9100056B26 /* SideMenu.swift in Sources */,
-				F166F3F8291FA9550046525D /* SideMenuProtocols.swift in Sources */,
 				C59ED4A5291E1AE400D883D5 /* BaseViewController.swift in Sources */,
 				F1E2DCD829198C2000E5915F /* SceneDelegate.swift in Sources */,
 			);
