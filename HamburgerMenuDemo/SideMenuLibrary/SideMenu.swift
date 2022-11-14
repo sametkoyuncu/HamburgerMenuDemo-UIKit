@@ -10,17 +10,11 @@ final class SideMenu: UIView {
     // for configurations
     // TODO: delegate may be use a protocol
     weak var delegate: UIViewController?
-    
+
     // States
     private var menuState: MenuState = .closed
     private var menuPosition: MenuPosition = .right
-    
-    let transparentButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .yellow
-        button.setTitle("Transparent", for: .normal)
-        return button
-    }()
+    private var menuBackgroundColor: UIColor!
     
     private override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,44 +34,26 @@ final class SideMenu: UIView {
                            width: menuConfig.vc.view.frame.width + 5,
                            height: menuConfig.vc.view.frame.height)
         super.init(frame: frame)
+    
+        let transparentView = createTransparentView(menuConfig)
         
-        // TODO: position a göre x'i set et
-        // menuView ın x ini değiştirmek gerekebilir
-        let transparentView: UIView = .init(frame: CGRect(x: menuConfig.position == .left ? menuConfig.customView.frame.width : 0,
-                                                          y: 0,
-                                                          width: (menuConfig.vc.view.frame.width - menuConfig.customView.frame.width) + 10,
-                                                          height: menuConfig.vc.view.frame.height))
-        
-        
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didOutSideTapped(_:)))
-        
-        transparentView.addGestureRecognizer(tapGestureRecognizer)
-        transparentView.backgroundColor = .clear
-        
-        self.isHidden = true
-        switch menuConfig.position {
-            
-        case .left:
-            self.addSubview(menuConfig.customView)
-            self.addSubview(transparentView)
-        case .right:
-            self.addSubview(transparentView)
-            self.addSubview(menuConfig.customView)
-            
+        if menuConfig.position == .right {
+            menuConfig.customView.frame.origin.x = transparentView.frame.width - 2
         }
-       
+
+        self.isHidden = true
+        self.addSubview(menuConfig.customView)
+        self.addSubview(transparentView)
         
         menuConfig.vc.view.addSubview(self)
         
         // set stored properties
         self.menuPosition = menuConfig.position
+        self.menuBackgroundColor = menuConfig.backgroundColor
         self.delegate = menuConfig.vc
         
-        // setup gestures and configure navbar
+        // setup gestures
         setupDelegateGestures()
-        // TODO: this must be optional and has take custom styles
-        configureNavbar()
     }
 }
 
@@ -104,7 +80,7 @@ extension SideMenu {
                            initialSpringVelocity: 0,
                            options: .curveEaseInOut) { [weak self] in
                 
-                self?.backgroundColor = .darkGray.withAlphaComponent(0.7)
+                self?.backgroundColor = self?.menuBackgroundColor
             }
         }
     }
@@ -119,18 +95,98 @@ extension SideMenu {
                        usingSpringWithDamping: 0.8,
                        initialSpringVelocity: 0,
                        options: .curveEaseInOut) { [weak self] in
-            
-            self?.backgroundColor = .darkGray.withAlphaComponent(0.0)
+            self?.backgroundColor = .clear
         }
         
-    }
-    
-    func getPosition() -> MenuPosition {
-        self.menuPosition
     }
 }
 
 private extension SideMenu {
+    func createTransparentView(_ menuConfig: MenuConfig) -> UIView {
+        let transparentView: UIView = .init(frame: CGRect(x: menuConfig.position == .left ? menuConfig.customView.frame.width : 0,
+                                                          y: 0,
+                                                          width: (menuConfig.vc.view.frame.width - menuConfig.customView.frame.width) + 10,
+                                                          height: menuConfig.vc.view.frame.height))
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didOutSideTapped(_:)))
+        
+        transparentView.addGestureRecognizer(tapGestureRecognizer)
+        transparentView.backgroundColor = .clear
+        
+        return transparentView
+    }
+    // MARK: - menu animations
+    func updateMenuOriginX(for status: MenuState) {
+        UIView.animate(withDuration: 0.8,
+                       delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseInOut) { [weak self] in
+            guard let self = self else { return }
+            switch self.menuPosition {
+            case .left:
+                self.frame.origin.x = status == .opened ?  -5 : -(self.frame.width + 5)
+            case .right:
+                self.frame.origin.x = status == .opened ?  self.delegate!.view.frame.width - (self.frame.width - 5) : self.delegate!.view.frame.width + 5
+            }
+        }
+        
+        // for navigation controller pop event (-!- delay, important for animations)
+        switch status {
+        case .opened:
+            self.isHidden = false
+        case .closed:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.isHidden = true
+            }
+        }
+    }
+
+    // MARK: - Show or hide navigationBar
+    func changeNavBarStatus(to status: NavBarStatus) {
+        switch status {
+        case .show:
+            UIView.animate(withDuration: 0.8,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.delegate?.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: 0)
+                self?.backgroundColor = self?.menuBackgroundColor
+            }
+        case .hide:
+            UIView.animate(withDuration: 0.8,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                self?.delegate?.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -200)
+                self?.backgroundColor = .clear
+            }
+        }
+    }
+}
+
+// MARK: - Gesture Settings
+private extension SideMenu {
+    // MARK: - setup gestures | open or close menu using left and right swipe
+    func setupDelegateGestures() {
+        let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
+        swipeGestureRecognizerLeft.direction = .left
+        
+        let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
+        swipeGestureRecognizerRight.direction = .right
+        
+        self.addGestureRecognizer(swipeGestureRecognizerLeft)
+        self.addGestureRecognizer(swipeGestureRecognizerRight)
+        
+        // edge swipe action
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
+        edgePan.edges = self.menuPosition == .left ? .left : .right
+        
+        delegate?.view.addGestureRecognizer(edgePan)
+    }
+    
     // MARK: - Swipe Methods
     @objc func didOutSideTapped(_ sender: UITapGestureRecognizer) {
         if menuState == .opened {
@@ -169,89 +225,6 @@ private extension SideMenu {
             openMenu()
         }
     }
-    
-    // MARK: - menu animations
-    func updateMenuOriginX(for status: MenuState) {
-        UIView.animate(withDuration: 0.8,
-                       delay: 0,
-                       usingSpringWithDamping: 0.8,
-                       initialSpringVelocity: 0,
-                       options: .curveEaseInOut) { [weak self] in
-            guard let self = self else { return }
-            switch self.menuPosition {
-            case .left:
-                self.frame.origin.x = status == .opened ?  -5 : -(self.frame.width + 5)
-            case .right:
-                self.frame.origin.x = status == .opened ?  self.delegate!.view.frame.width - (self.frame.width - 5) : self.delegate!.view.frame.width + 5
-            }
-        }
-        
-        // for navigation controller pop event (-!- delay, important for animations)
-        switch status {
-        case .opened:
-            self.isHidden = false
-        case .closed:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                self?.isHidden = true
-            }
-        }
-    }
-    
-    // MARK: - setup gestures | open or close menu using left and right swipe
-    func setupDelegateGestures() {
-        let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
-        swipeGestureRecognizerLeft.direction = .left
-        
-        let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
-        swipeGestureRecognizerRight.direction = .right
-        
-        self.addGestureRecognizer(swipeGestureRecognizerLeft)
-        self.addGestureRecognizer(swipeGestureRecognizerRight)
-        
-        // MARK: - edge
-        // left edge swipe action
-        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
-        edgePan.edges = self.getPosition() == .left ? .left : .right
-        
-        delegate?.view.addGestureRecognizer(edgePan)
-    }
-    
-    // MARK: - navbar config | navbar background color etc.
-    func configureNavbar() {
-        delegate?.navigationController?.navigationBar.prefersLargeTitles = false
-        
-        let appearance = UINavigationBarAppearance()
-        
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        delegate?.navigationController?.navigationBar.tintColor = .black
-        delegate?.navigationController?.navigationBar.standardAppearance = appearance
-        delegate?.navigationController?.navigationBar.compactAppearance = appearance
-        delegate?.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-    }
-    
-    // MARK: - Show or hide navigationBar
-    func changeNavBarStatus(to status: NavBarStatus) {
-        switch status {
-        case .show:
-            UIView.animate(withDuration: 0.8,
-                           delay: 0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 0,
-                           options: .curveEaseInOut) { [weak self] in
-                self?.delegate?.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: 0)
-            }
-        case .hide:
-            UIView.animate(withDuration: 0.8,
-                           delay: 0,
-                           usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 0,
-                           options: .curveEaseInOut) { [weak self] in
-                self?.delegate?.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -200)
-            }
-        }
-    }
 }
+
 

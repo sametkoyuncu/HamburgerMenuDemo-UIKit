@@ -25,4 +25,5 @@ struct MenuConfig {
     var vc: UIViewController
     var customView: UIView
     var position: MenuPosition = .left
+    var backgroundColor: UIColor = .darkGray.withAlphaComponent(0.7)
 }

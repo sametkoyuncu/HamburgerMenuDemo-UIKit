@@ -21,9 +21,12 @@ class BaseViewController: UIViewController {
                                 vc: self) {
             self.sideMenu.closeMenu()
         }
+                        
         // side menu
-        let config: MenuConfig = .init(vc: self, customView: menuView, position: .right)
+        let config: MenuConfig = .init(vc: self, customView: menuView)
         sideMenu = SideMenu(config)
+        
+        configureNavbar()
     }
     
     func openMenu() {
@@ -38,5 +41,20 @@ class BaseViewController: UIViewController {
         sideMenu.toggleMenu()
     }
     
+    // MARK: - navbar config | navbar background color etc.
+    func configureNavbar() {
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        let appearance = UINavigationBarAppearance()
+        
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
    
 }
