@@ -19,7 +19,21 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQN-UI-UgB">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.on.rectangle.angled" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NnB-NN-VkJ">
+                                        <rect key="frame" x="75" y="302" width="240" height="239.33333333333337"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="240" id="W7m-Og-iLD"/>
+                                            <constraint firstAttribute="height" constant="240" id="zuX-Rf-dkx"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstItem="NnB-NN-VkJ" firstAttribute="centerY" secondItem="DQN-UI-UgB" secondAttribute="centerY" id="5vM-aw-LvG"/>
+                                    <constraint firstItem="NnB-NN-VkJ" firstAttribute="centerX" secondItem="DQN-UI-UgB" secondAttribute="centerX" id="9Jo-vq-pPx"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -89,12 +103,22 @@
                                     <action selector="pushTapped:" destination="Grw-jm-vun" eventType="touchUpInside" id="GaX-pw-69y"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="volleyball.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="yeA-KU-uyA">
+                                <rect key="frame" x="75" y="172" width="240" height="126.66666666666669"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="4dB-1u-w2J"/>
+                                    <constraint firstAttribute="height" constant="128" id="VFv-tF-cwb"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="alP-NB-1jz"/>
                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
                         <constraints>
                             <constraint firstItem="7Le-Wy-tRe" firstAttribute="centerY" secondItem="23w-ay-5qe" secondAttribute="centerY" id="a89-eD-HjR"/>
                             <constraint firstItem="alP-NB-1jz" firstAttribute="trailing" secondItem="7Le-Wy-tRe" secondAttribute="trailing" constant="38" id="fiz-Ei-X3l"/>
+                            <constraint firstItem="yeA-KU-uyA" firstAttribute="centerX" secondItem="23w-ay-5qe" secondAttribute="centerX" id="t94-XY-nCH"/>
+                            <constraint firstItem="yeA-KU-uyA" firstAttribute="top" secondItem="alP-NB-1jz" secondAttribute="top" constant="80" id="zxv-qk-hY7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Purple" id="p8b-ze-9Zf">
@@ -123,8 +147,22 @@
                     <view key="view" contentMode="scaleToFill" id="nYu-z2-SLr">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fuelpump.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nqj-yf-FEL">
+                                <rect key="frame" x="75" y="302" width="240" height="240.33333333333337"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="YXm-M5-Xdv"/>
+                                    <constraint firstAttribute="height" constant="240" id="oay-5y-0Cm"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="K2v-Cb-RG9"/>
                         <color key="backgroundColor" systemColor="systemPinkColor"/>
+                        <constraints>
+                            <constraint firstItem="nqj-yf-FEL" firstAttribute="centerY" secondItem="nYu-z2-SLr" secondAttribute="centerY" id="4Cs-Ld-de2"/>
+                            <constraint firstItem="nqj-yf-FEL" firstAttribute="centerX" secondItem="nYu-z2-SLr" secondAttribute="centerX" id="Agx-al-aGa"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s60-k0-sjr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -151,8 +189,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="fuelpump.fill" catalog="system" width="128" height="125"/>
         <image name="list.bullet.rectangle.fill" catalog="system" width="128" height="93"/>
         <image name="menu" width="40" height="40"/>
+        <image name="photo.on.rectangle.angled" catalog="system" width="128" height="98"/>
+        <image name="volleyball.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

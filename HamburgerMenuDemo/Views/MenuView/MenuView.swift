@@ -34,7 +34,6 @@ extension MenuView {
     @IBAction func closeButtonTapped(_ sender: Any) {
         //toggleMenu()
         toggleMenu?()
-        print("tapped")
     }
 }
 

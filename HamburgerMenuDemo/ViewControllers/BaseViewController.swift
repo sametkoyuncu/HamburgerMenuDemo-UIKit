@@ -12,6 +12,7 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // menu view inside side menu
         let menuView = MenuView(frame: CGRect(x: 0,
                                               y: 0,
@@ -21,8 +22,14 @@ class BaseViewController: UIViewController {
             self.sideMenu.closeMenu()
         }
         // side menu
-        let config: MenuConfig = .init(vc: self, customView: menuView)
+        let config: MenuConfig = .init(vc: self, customView: menuView, position: .left)
         sideMenu = SideMenu(config)
+        
+        // left edge swipe action
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
+        edgePan.edges = sideMenu.getPosition() == .left ? .left : .right
+        
+        view.addGestureRecognizer(edgePan)
     }
     
     func openMenu() {
@@ -35,5 +42,11 @@ class BaseViewController: UIViewController {
     
     func toggleMenu() {
         sideMenu.toggleMenu()
+    }
+    
+    @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .recognized {
+            sideMenu.openMenu()
+        }
     }
 }

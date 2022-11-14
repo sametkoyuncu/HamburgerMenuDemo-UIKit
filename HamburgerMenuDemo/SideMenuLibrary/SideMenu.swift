@@ -13,7 +13,14 @@ final class SideMenu: UIView {
     
     // States
     private var menuState: MenuState = .closed
-    private var menuPosition: MenuPosition = .left
+    private var menuPosition: MenuPosition = .right
+    
+    let transparentButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .yellow
+        button.setTitle("Transparent", for: .normal)
+        return button
+    }()
     
     private override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,12 +37,37 @@ final class SideMenu: UIView {
         // create frame using properties for our view
         let frame = CGRect(x: x,
                            y: 0,
-                           width: width,
+                           width: menuConfig.vc.view.frame.width + 5,
                            height: menuConfig.vc.view.frame.height)
         super.init(frame: frame)
         
+        // TODO: position a göre x'i set et
+        // menuView ın x ini değiştirmek gerekebilir
+        let transparentView: UIView = .init(frame: CGRect(x: menuConfig.position == .left ? menuConfig.customView.frame.width : 0,
+                                                          y: 0,
+                                                          width: (menuConfig.vc.view.frame.width - menuConfig.customView.frame.width) + 10,
+                                                          height: menuConfig.vc.view.frame.height))
+        
+        
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didOutSideTapped(_:)))
+        
+        transparentView.addGestureRecognizer(tapGestureRecognizer)
+        transparentView.backgroundColor = .clear
+        
         self.isHidden = true
-        self.addSubview(menuConfig.customView)
+        switch menuConfig.position {
+            
+        case .left:
+            self.addSubview(menuConfig.customView)
+            self.addSubview(transparentView)
+        case .right:
+            self.addSubview(transparentView)
+            self.addSubview(menuConfig.customView)
+            
+        }
+       
+        
         menuConfig.vc.view.addSubview(self)
         
         // set stored properties
@@ -43,9 +75,9 @@ final class SideMenu: UIView {
         self.delegate = menuConfig.vc
         
         // setup gestures and configure navbar
-        setupGestures()
+        setupDelegateGestures()
         // TODO: this must be optional and has take custom styles
-        navBarConfig()
+        configureNavbar()
     }
 }
 
@@ -64,17 +96,48 @@ extension SideMenu {
         changeNavBarStatus(to: .hide)
         updateMenuOriginX(for: .opened)
         menuState = .opened
+        // bg
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            UIView.animate(withDuration: 0.8,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0,
+                           options: .curveEaseInOut) { [weak self] in
+                
+                self?.backgroundColor = .darkGray.withAlphaComponent(0.7)
+            }
+        }
     }
     
     func closeMenu() {
         changeNavBarStatus(to: .show)
         updateMenuOriginX(for: .closed)
         menuState = .closed
+        // bg
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0,
+                       options: .curveEaseInOut) { [weak self] in
+            
+            self?.backgroundColor = .darkGray.withAlphaComponent(0.0)
+        }
+        
+    }
+    
+    func getPosition() -> MenuPosition {
+        self.menuPosition
     }
 }
 
 private extension SideMenu {
     // MARK: - Swipe Methods
+    @objc func didOutSideTapped(_ sender: UITapGestureRecognizer) {
+        if menuState == .opened {
+            closeMenu()
+        }
+    }
+    
     @objc func didSwipeLeft(_ sender: UISwipeGestureRecognizer) {
         switch menuPosition {
         case .left:
@@ -129,20 +192,19 @@ private extension SideMenu {
     }
     
     // MARK: - setup gestures | open or close menu using left and right swipe
-    func setupGestures() {
+    func setupDelegateGestures() {
         let swipeGestureRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeLeft(_:)))
         swipeGestureRecognizerLeft.direction = .left
         
         let swipeGestureRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeRight(_:)))
         swipeGestureRecognizerRight.direction = .right
         
-        
-        delegate?.view.addGestureRecognizer(swipeGestureRecognizerLeft)
-        delegate?.view.addGestureRecognizer(swipeGestureRecognizerRight)
+        self.addGestureRecognizer(swipeGestureRecognizerLeft)
+        self.addGestureRecognizer(swipeGestureRecognizerRight)
     }
     
     // MARK: - navbar config | navbar background color etc.
-    func navBarConfig() {
+    func configureNavbar() {
         delegate?.navigationController?.navigationBar.prefersLargeTitles = false
         
         let appearance = UINavigationBarAppearance()
