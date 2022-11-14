@@ -164,6 +164,12 @@ private extension SideMenu {
         }
     }
     
+    @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .recognized {
+            openMenu()
+        }
+    }
+    
     // MARK: - menu animations
     func updateMenuOriginX(for status: MenuState) {
         UIView.animate(withDuration: 0.8,
@@ -201,6 +207,13 @@ private extension SideMenu {
         
         self.addGestureRecognizer(swipeGestureRecognizerLeft)
         self.addGestureRecognizer(swipeGestureRecognizerRight)
+        
+        // MARK: - edge
+        // left edge swipe action
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
+        edgePan.edges = self.getPosition() == .left ? .left : .right
+        
+        delegate?.view.addGestureRecognizer(edgePan)
     }
     
     // MARK: - navbar config | navbar background color etc.
