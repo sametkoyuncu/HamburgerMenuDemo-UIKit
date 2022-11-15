@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SideTown
 
 class BaseViewController: UIViewController {
     private var sideMenu: SideMenu!
@@ -18,12 +19,14 @@ class BaseViewController: UIViewController {
                                               y: 0,
                                               width: 280,
                                               height: UIScreen.main.bounds.height),
-                                vc: self) {
-            self.sideMenu.closeMenu()
+                                vc: self) { [weak self] in
+            self?.sideMenu.closeMenu()
         }
+        
+
                         
         // side menu
-        let config: MenuConfig = .init(vc: self, customView: menuView)
+        let config: MenuConfig = .init(vc: self, customView: menuView, position: .left)
         sideMenu = SideMenu(config)
         
         configureNavbar()
